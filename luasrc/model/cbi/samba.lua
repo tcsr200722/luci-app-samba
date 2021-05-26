@@ -34,9 +34,7 @@ a.default = "1"
 tmpl = s:taboption(
     "template",
     Value, 
-    "_tmpl",
-	translate("Edit the template that is used for generating the samba configuration."),
-	translate("This is the content of the file '/etc/samba/smb.conf.template' from which your samba configuration will be generated. Values enclosed by pipe symbols ('|') should not be changed. They get their values from the 'General Settings' tab.")
+    "_tmpl"
 )
 
 tmpl.template = "cbi/tvalue"
