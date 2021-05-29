@@ -37,8 +37,7 @@ msgstr "网络共享"
 msgid "Path"
 msgstr "目录"
 
-msgid ""
-"Please add directories to share. Each directory refers to a folder on a mounted device."
+msgid "Please add directories to share. Each directory refers to a folder on a mounted device."
 msgstr "请添加要共享的目录。每个目录指到已挂载设备上的文件夹。"
 
 msgid "Read-only"
