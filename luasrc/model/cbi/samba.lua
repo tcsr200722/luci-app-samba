@@ -1,61 +1,35 @@
--- Copyright 2008 Steven Barth <steven@midlink.org>
--- Copyright 2008 Jo-Philipp Wich <jow@openwrt.org>
--- Licensed to the public under the Apache License 2.0.
-
 m = Map("samba", translate("Network Shares"))
 
 s = m:section(TypedSection, "samba", "Samba")
 s.anonymous = true
 
-s:tab("general",  translate("General Settings"))
+s:tab("general", translate("General Settings"))
 s:tab("template", translate("Edit Template"))
 
 s:taboption("general", Value, "name", translate("Hostname"))
 s:taboption("general", Value, "description", translate("Description"))
 s:taboption("general", Value, "workgroup", translate("Workgroup"))
-h = s:taboption(
-    "general", 
-    Flag, 
-    "homes", 
-    translate("Share home-directories"), 
-    translate("Allow system users to reach their home directories via network shares")
-)
+h = s:taboption("general", Flag, "homes", translate("Share home-directories"), translate("Allow system users to reach their home directories via network shares"))
 h.rmempty = false
-a = s:taboption(
-    "general", 
-    Flag, 
-    "autoshare", 
-    translate("Auto Share"),
-    translate("Auto share local disk which connected")
-)
+a = s:taboption("general", Flag, "autoshare", translate("Auto Share"), translate("Auto share local disk which connected"))
 a.rmempty = false
 a.default = "1"
 
-tmpl = s:taboption(
-    "template",
-    Value, 
-    "_tmpl"
-)
+tmpl = s:taboption("template", Value, "_tmpl")
 
 tmpl.template = "cbi/tvalue"
 tmpl.rows = 20
 
 function tmpl.cfgvalue(self, section)
-	return nixio.fs.readfile("/etc/samba/smb.conf.template")
+    return nixio.fs.readfile("/etc/samba/smb.conf.template")
 end
 
 function tmpl.write(self, section, value)
-	value = value:gsub("\r\n?", "\n")
-	nixio.fs.writefile("//etc/samba/smb.conf.template", value)
+    value = value:gsub("\r\n?", "\n")
+    nixio.fs.writefile("//etc/samba/smb.conf.template", value)
 end
 
-
-s = m:section(
-    TypedSection,
-    "sambashare", 
-    translate("Shared Directories"),
-    translate("Please add directories to share. Each directory refers to a folder on a mounted device.")
-)
+s = m:section(TypedSection, "sambashare", translate("Shared Directories"), translate("Please add directories to share. Each directory refers to a folder on a mounted device."))
 s.anonymous = true
 s.addremove = true
 s.template = "cbi/tblsection"
@@ -91,6 +65,5 @@ cm.size = 4
 dm = s:option(Value, "dir_mask", translate("Directory mask"))
 dm.rmempty = true
 dm.size = 4
-
 
 return m
